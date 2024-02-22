@@ -23,8 +23,7 @@ h1 {
 
 .header {
   margin-bottom: 40px;
-  padding: 10px;
-  background-color: red;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -32,8 +31,8 @@ h1 {
 
 .logo {
   display: flex;
-  background-color: blue;
   align-items: center;
+  gap: 16px;
 }
 
 .fact-form {
