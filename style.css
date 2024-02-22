@@ -94,6 +94,7 @@ ul {
   color: #a8a29e;
   text-decoration: none;
   margin-left: 12px;
+  transition: all 0.3s;
 }
 
 .source:hover,
