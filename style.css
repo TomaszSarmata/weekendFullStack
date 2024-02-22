@@ -12,10 +12,13 @@ body {
 }
 
 h1 {
-  font-size: 62px;
+  font-size: 42px;
   text-transform: uppercase;
   font-family: "Coiny", sans-serif;
   color: #fafaf9;
+
+  line-height: 1;
+  margin-top: 6px;
 }
 
 .header {
@@ -28,8 +31,9 @@ h1 {
 }
 
 .logo {
-  /* flex: 1; */
+  display: flex;
   background-color: blue;
+  align-items: center;
 }
 
 .fact-form {
