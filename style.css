@@ -20,6 +20,16 @@ h1 {
 
 .header {
   margin-bottom: 40px;
+  padding: 10px;
+  background-color: red;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  /* flex: 1; */
+  background-color: blue;
 }
 
 .fact-form {
