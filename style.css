@@ -190,6 +190,12 @@ ul {
   margin-right: 18px;
 }
 
+/* HELPER CLASSES */
+
+.hidden {
+  display: none;
+}
+
 /* MEDIA QUERIES */
 
 @media (max-width: 1200px) {
