@@ -1,9 +1,48 @@
 import CATEGORIES from "./data.js";
 import { initialFacts } from "./data.js";
 
+// SELECTING DOM ELEMENTS
 const form = document.querySelector(".fact-form");
 const shareFact = document.querySelector(".share-fact");
 
+const factsList = document.querySelector(".facts-list");
+
+// CREATE DOM ELEMENTS: render items from data.js
+factsList.innerHTML = "";
+
+const htmlArr = initialFacts.map(
+  (fact) => `<li class="fact">
+
+      <p class="fact-text">
+      ${fact.text}
+        <a
+          class="source"
+          href=${fact.source}
+          target="_blank"
+          >(Source)</a
+        >
+      </p>
+      <span class="tag" style="background-color: ${CATEGORIES.map((category) =>
+        category.name === fact.category ? category.color : ""
+      )}"
+        >${fact.category}</span>
+  
+  </li>`
+);
+
+const html = htmlArr.join("");
+
+factsList.insertAdjacentHTML("afterbegin", html);
+
+// console.log(htmlArr);
+
+// console.log(html);
+
+// factsList.insertAdjacentHTML("afterbegin", "<li>Tomasz</li>");
+// factsList.insertAdjacentHTML("afterbegin", "<li>Mike</li>");
+// factsList.insertAdjacentHTML("afterbegin", "<li>John</li>");
+
+//TOGGLE FORM VISIBILITY
 shareFact.addEventListener("click", () => {
   form.classList.toggle("hidden");
   if (form.classList.contains("hidden")) {
@@ -13,19 +52,19 @@ shareFact.addEventListener("click", () => {
   }
 });
 
-const allCategories = CATEGORIES.map((category) => category.name);
+// const allCategories = CATEGORIES.map((category) => category.name);
 
-console.log(allCategories);
+// console.log(allCategories);
 
-const facts = initialFacts.map((fact) => fact.text);
-const factAges = initialFacts.map((fact) => {
-  const now = new Date().getFullYear();
-  const age = now - fact.createdIn;
-  return age;
-});
+// const facts = initialFacts.map((fact) => fact.text);
+// const factAges = initialFacts.map((fact) => {
+//   const now = new Date().getFullYear();
+//   const age = now - fact.createdIn;
+//   return age;
+// });
 
-console.log(facts);
-console.log(factAges.join(" & "));
+// console.log(facts);
+// console.log(factAges.join(" & "));
 
 // const fact = ["lisbone is the capital", 2015, true];
 // console.log(fact[fact.length - 1]);
