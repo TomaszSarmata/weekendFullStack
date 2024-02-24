@@ -18,8 +18,14 @@ const allCategories = CATEGORIES.map((category) => category.name);
 console.log(allCategories);
 
 const facts = initialFacts.map((fact) => fact.text);
+const factAges = initialFacts.map((fact) => {
+  const now = new Date().getFullYear();
+  const age = now - fact.createdIn;
+  return age;
+});
 
 console.log(facts);
+console.log(factAges.join(" & "));
 
 // const fact = ["lisbone is the capital", 2015, true];
 // console.log(fact[fact.length - 1]);
