@@ -10,8 +10,8 @@ const factsList = document.querySelector(".facts-list");
 // CREATE DOM ELEMENTS: render items from data.js
 factsList.innerHTML = "";
 
-function createFactsList() {
-  const htmlArr = initialFacts.map(
+function createFactsList(data) {
+  const htmlArr = data.map(
     (fact) => `<li class="fact">
   
         <p class="fact-text">
@@ -36,7 +36,7 @@ function createFactsList() {
   factsList.insertAdjacentHTML("afterbegin", html);
 }
 
-createFactsList();
+createFactsList(initialFacts);
 
 // console.log(htmlArr);
 
