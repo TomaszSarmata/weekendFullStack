@@ -10,29 +10,33 @@ const factsList = document.querySelector(".facts-list");
 // CREATE DOM ELEMENTS: render items from data.js
 factsList.innerHTML = "";
 
-const htmlArr = initialFacts.map(
-  (fact) => `<li class="fact">
-
-      <p class="fact-text">
-      ${fact.text}
-        <a
-          class="source"
-          href=${fact.source}
-          target="_blank"
-          >(Source)</a
-        >
-      </p>
-      <span class="tag" style="background-color: ${CATEGORIES.map((category) =>
-        category.name === fact.category ? category.color : ""
-      )}"
-        >${fact.category}</span>
+function createFactsList() {
+  const htmlArr = initialFacts.map(
+    (fact) => `<li class="fact">
   
-  </li>`
-);
+        <p class="fact-text">
+        ${fact.text}
+          <a
+            class="source"
+            href=${fact.source}
+            target="_blank"
+            >(Source)</a
+          >
+        </p>
+        <span class="tag" style="background-color: ${CATEGORIES.map(
+          (category) => (category.name === fact.category ? category.color : "")
+        )}"
+          >${fact.category}</span>
+    
+    </li>`
+  );
 
-const html = htmlArr.join("");
+  const html = htmlArr.join("");
 
-factsList.insertAdjacentHTML("afterbegin", html);
+  factsList.insertAdjacentHTML("afterbegin", html);
+}
+
+createFactsList();
 
 // console.log(htmlArr);
 
