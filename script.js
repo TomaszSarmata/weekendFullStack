@@ -10,6 +10,28 @@ const factsList = document.querySelector(".facts-list");
 // CREATE DOM ELEMENTS: render items from data.js
 factsList.innerHTML = "";
 
+//load data from supabase
+
+async function loadFacts() {
+  const res = await fetch(
+    `https://tjtiuhuupegrrmkwvvgz.supabase.co/rest/v1/facts`,
+    {
+      headers: {
+        apikey:
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRqdGl1aHV1cGVncnJta3d2dmd6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDg2MTU3NzQsImV4cCI6MjAyNDE5MTc3NH0.dMtRdCq_6OVsEBVCrySwyaQ3X5t9bqbyDLE-Rr7JiIM",
+        authorization:
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRqdGl1aHV1cGVncnJta3d2dmd6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDg2MTU3NzQsImV4cCI6MjAyNDE5MTc3NH0.dMtRdCq_6OVsEBVCrySwyaQ3X5t9bqbyDLE-Rr7JiIM",
+      },
+    }
+  );
+
+  const data = await res.json();
+
+  createFactsList(data);
+}
+
+loadFacts();
+
 function createFactsList(data) {
   const htmlArr = data.map(
     (fact) => `<li class="fact">
@@ -36,7 +58,9 @@ function createFactsList(data) {
   factsList.insertAdjacentHTML("afterbegin", html);
 }
 
-createFactsList(initialFacts);
+// createFactsList(res);
+
+// createFactsList(initialFacts);
 
 // console.log(htmlArr);
 
