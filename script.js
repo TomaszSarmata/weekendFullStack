@@ -27,6 +27,10 @@ async function loadFacts() {
 
   const data = await res.json();
 
+  // const filteredData = data.filter((fact) => fact.category === "society");
+
+  // console.log(filteredData);
+
   createFactsList(data);
 }
 
@@ -45,9 +49,9 @@ function createFactsList(data) {
             >(Source)</a
           >
         </p>
-        <span class="tag" style="background-color: ${CATEGORIES.map(
-          (category) => (category.name === fact.category ? category.color : "")
-        )}"
+        <span class="tag" style="background-color: ${
+          CATEGORIES.find((category) => category.name === fact.category).color
+        }"
           >${fact.category}</span>
     
     </li>`
@@ -58,17 +62,13 @@ function createFactsList(data) {
   factsList.insertAdjacentHTML("afterbegin", html);
 }
 
-// createFactsList(res);
+// const ourArray = [7, 64, 6, -23, 11].filter((number) => number > 10);
 
-// createFactsList(initialFacts);
+// console.log(ourArray);
 
-// console.log(htmlArr);
+// const ourNumber = [7, 64, 6, -23, 11].find((number) => number > 10);
 
-// console.log(html);
-
-// factsList.insertAdjacentHTML("afterbegin", "<li>Tomasz</li>");
-// factsList.insertAdjacentHTML("afterbegin", "<li>Mike</li>");
-// factsList.insertAdjacentHTML("afterbegin", "<li>John</li>");
+// console.log(ourNumber);
 
 //TOGGLE FORM VISIBILITY
 shareFact.addEventListener("click", () => {
