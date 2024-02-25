@@ -62,7 +62,7 @@ function createFactsList(data) {
   factsList.insertAdjacentHTML("afterbegin", html);
 }
 
-// const ourArray = [7, 64, 6, -23, 11].filterç((number) => number > 10);
+// const ourArray = [7, 64, 6, -23, 11].filter((number) => number > 10);
 
 // console.log(ourArray);
 
