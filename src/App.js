@@ -39,7 +39,7 @@ function NewFactForm() {
         <option value="science">Science</option>
         <option value="finance">Finance</option>
       </select>
-      <button class="btn btn-large">Post</button>
+      <button className="btn btn-large">Post</button>
     </form>
   );
 }
@@ -48,19 +48,14 @@ function CategoryFilter() {
   return (
     <aside>
       <ul>
-        <li class="category">
-          <button class="btn btn-all-categories">All</button>
+        <li className="category">
+          <button className="btn btn-all-categories">All</button>
         </li>
-        <li class="category">
+        <li className="category">
           <button className="btn btn-category">Technology</button>
         </li>
-        <li class="category">
-          <button
-            class="btn btn-category"
-            styleName="background-color: #16a34a"
-          >
-            Science
-          </button>
+        <li className="category">
+          <button className="btn btn-category">Science</button>
         </li>
       </ul>
     </aside>
