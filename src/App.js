@@ -1,6 +1,7 @@
 import "./style.css";
 
 function App() {
+  const appTitle = "Today I Learned";
   return (
     <>
       {/* HEADER - to be moved to a component */}
@@ -12,7 +13,7 @@ function App() {
             height="68px"
             width="68px"
           />
-          <h1>Today I learned</h1>
+          <h1>{appTitle}</h1>
         </div>
 
         <button className="btn btn-large share-fact">Share A Fact</button>
@@ -51,12 +52,7 @@ function CategoryFilter() {
           <button class="btn btn-all-categories">All</button>
         </li>
         <li class="category">
-          <button
-            class="btn btn-category"
-            styleName="background-color: #3b82f6"
-          >
-            Technology
-          </button>
+          <button className="btn btn-category">Technology</button>
         </li>
         <li class="category">
           <button
