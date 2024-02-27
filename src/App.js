@@ -4,7 +4,18 @@ import { initialFacts } from "./data";
 import { useState } from "react";
 
 function App() {
+  const [hideForm, setHideForm] = useState("none");
+  const [btnText, setBtnText] = useState("share a fact");
   const appTitle = "Today I Learned";
+  const toggleForm = () => {
+    if (hideForm === "none") {
+      setHideForm("block");
+      setBtnText("Close");
+    } else {
+      setHideForm("none");
+      setBtnText("share a fact");
+    }
+  };
   return (
     <>
       {/* HEADER - to be moved to a component */}
@@ -19,9 +30,11 @@ function App() {
           <h1>{appTitle}</h1>
         </div>
 
-        <button className="btn btn-large share-fact">Share A Fact</button>
+        <button onClick={toggleForm} className="btn btn-large share-fact">
+          {btnText}
+        </button>
       </header>
-      <NewFactForm />
+      <NewFactForm hideForm={hideForm} />
       <main className="main">
         <CategoryFilter />
         <FactsList />
@@ -30,9 +43,9 @@ function App() {
   );
 }
 
-function NewFactForm() {
+function NewFactForm({ hideForm }) {
   return (
-    <form action="" className="fact-form">
+    <form action="" className="fact-form" style={{ display: hideForm }}>
       <input type="text" placeholder="Share a fact with the world" />
       <span>200</span>
       <input type="text" placeholder="Trustworthy source..." />
