@@ -1,4 +1,6 @@
 import "./style.css";
+import CATEGORIES from "./data";
+import { initialFacts } from "./data";
 
 function App() {
   const appTitle = "Today I Learned";
