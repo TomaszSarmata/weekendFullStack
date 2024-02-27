@@ -70,7 +70,7 @@ function FactsList() {
   return (
     <section>
       <ul className="facts-list">
-        {facts.map((fact, key) => (
+        {facts.map((fact) => (
           <li key={fact.id} className="fact">
             <p className="fact-text">
               {fact.text}
