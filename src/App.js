@@ -1,11 +1,26 @@
 import "./style.css";
 import CATEGORIES from "./data";
 import { initialFacts } from "./data";
+import { useState } from "react";
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div style={{ width: "10%" }}>
+      <div style={{ backgroundColor: "red", textAlign: "center" }}>{count}</div>
+      <button style={{ width: "100%" }} onClick={() => setCount(count + 1)}>
+        Increase the count!
+      </button>
+    </div>
+  );
+}
 
 function App() {
   const appTitle = "Today I Learned";
   return (
     <>
+      <Counter></Counter>
       {/* HEADER - to be moved to a component */}
       <header className="header">
         <div className="logo">
