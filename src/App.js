@@ -53,12 +53,16 @@ function CategoryFilter() {
         <li className="category">
           <button className="btn btn-all-categories">All</button>
         </li>
-        <li className="category">
-          <button className="btn btn-category">Technology</button>
-        </li>
-        <li className="category">
-          <button className="btn btn-category">Science</button>
-        </li>
+        {CATEGORIES.map((category) => (
+          <li key={category.color} className="category">
+            <button
+              style={{ backgroundColor: category.color }}
+              className="btn btn-category"
+            >
+              {category.name}
+            </button>
+          </li>
+        ))}
       </ul>
     </aside>
   );
