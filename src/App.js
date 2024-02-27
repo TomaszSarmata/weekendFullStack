@@ -71,7 +71,7 @@ function FactsList() {
     <section>
       <ul className="facts-list">
         {facts.map((fact) => (
-          <Fact fact={fact}></Fact>
+          <Fact fact={fact} key={fact.id}></Fact>
         ))}
       </ul>
     </section>
