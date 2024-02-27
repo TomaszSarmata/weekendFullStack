@@ -74,6 +74,7 @@ function FactsList() {
           <Fact fact={fact} key={fact.id}></Fact>
         ))}
       </ul>
+      <p>there are {facts.length} facts in total</p>
     </section>
   );
 }
@@ -83,7 +84,12 @@ function Fact({ fact }) {
     <li key={fact.id} className="fact">
       <p className="fact-text">
         {fact.text}
-        <a className="source" href={fact.source} target="_blank">
+        <a
+          className="source"
+          href={fact.source}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           (Source)
         </a>
       </p>
