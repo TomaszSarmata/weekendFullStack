@@ -65,47 +65,41 @@ function CategoryFilter() {
 }
 
 function FactsList() {
+  const facts = initialFacts;
+
   return (
     <section>
       <ul className="facts-list">
-        <li className="fact">
-          <p className="fact-text">
-            React is being developed by Meta (formerly facebook)
-            <a
-              className="source"
-              href="https://opensource.fb.com/"
-              target="_blank"
+        {facts.map((fact, key) => (
+          <li key={fact.id} className="fact">
+            <p className="fact-text">
+              {fact.text}
+              <a className="source" href={fact.source} target="_blank">
+                (Source)
+              </a>
+            </p>
+            <span
+              className="tag"
+              style={{
+                backgroundColor: `${
+                  CATEGORIES.find((category) => category.name === fact.category)
+                    .color
+                }`,
+              }}
             >
-              (Source)
-            </a>
-          </p>
-          <span className="tag">technology</span>
-          <div className="vote-buttons">
-            <button className="votes-interesting">👍 24</button>
-            <button className="votes-mindblowing">🧐 9</button>
-            <button className="votes-false">⛔️ 4</button>
-          </div>
-        </li>
-        <li className="fact">
-          <p>
-            Millennial dads spend 3 times as much time with their kids than
-            their fathers spent with them. In 1982, 43% of fathers had never
-            changed a diaper. Today, that number is down to 3%
-            <a
-              className="source"
-              target="_blank"
-              href="https://www.mother.ly/parenting/millennial-dads-spend-more-time-with-their-kids"
-            >
-              (Source)
-            </a>
-          </p>
-          <span className="tag">society</span>
-          <div className="vote-buttons">
-            <button>👍 11</button>
-            <button>🧐 2</button>
-            <button>⛔️ 0</button>
-          </div>
-        </li>
+              {fact.category}
+            </span>
+            <div className="vote-buttons">
+              <button className="votes-interesting">
+                👍 {fact.votesInteresting}
+              </button>
+              <button className="votes-mindblowing">
+                🤯 {fact.votesMindblowing}
+              </button>
+              <button className="votes-false">⛔️ {fact.votesFalse}</button>
+            </div>
+          </li>
+        ))}
       </ul>
     </section>
   );
