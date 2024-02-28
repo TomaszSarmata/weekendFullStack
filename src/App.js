@@ -57,7 +57,7 @@ function NewFactForm() {
       <input
         value={inputFact}
         onChange={(e) => {
-          setInputFact(e.value);
+          setInputFact(e.target.value);
         }}
         type="text"
         placeholder="Share a fact with the world"
@@ -66,7 +66,7 @@ function NewFactForm() {
       <input
         value={inputSource}
         onChange={(e) => {
-          setInputSource(e.value);
+          setInputSource(e.target.value);
         }}
         type="text"
         placeholder="Trustworthy source..."
