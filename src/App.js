@@ -56,10 +56,12 @@ function NewFactForm() {
       <span>200</span>
       <input type="text" placeholder="Trustworthy source..." />
       <select name="" id="">
-        <option value="">Choose Category</option>
-        <option value="technology">Technology</option>
-        <option value="science">Science</option>
-        <option value="finance">Finance</option>
+        <option defaultChecked={true} value="">
+          Choose Category
+        </option>
+        {CATEGORIES.map((category) => (
+          <option value={category.name}>{category.name}</option>
+        ))}
       </select>
       <button className="btn btn-large">Post</button>
     </form>
