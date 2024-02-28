@@ -78,9 +78,7 @@ function NewFactForm() {
         name=""
         id=""
       >
-        <option defaultChecked={true} value="">
-          Choose Category
-        </option>
+        <option value="">Choose Category</option>
         {CATEGORIES.map((category) => (
           <option key={category.name} value={category.name}>
             {category.name.toLocaleUpperCase()}
