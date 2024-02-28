@@ -55,8 +55,21 @@ function NewFactForm() {
   const [category, setCategory] = useState("");
 
   const handleSubmit = (e) => {
+    // 1. Prevent the browser reload
     e.preventDefault();
     console.log(inputFact, inputSource, category);
+
+    // 2. Check if data valid. If so, create a new fact (will have to create a state for the initialFacts and set the default to the variable that holds the initialFacts)
+    if (inputFact || inputSource || category) {
+    }
+
+    // 3. Create a new fact object and push it to the list of variable that holds initialFacts
+
+    // 4. Update the UI
+
+    // 5. Reset the input fileds to empty strings
+
+    // 6. Close the form
   };
 
   return (
