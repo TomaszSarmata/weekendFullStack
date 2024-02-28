@@ -11,24 +11,12 @@ function App() {
   return (
     <>
       {/* HEADER - to be moved to a component */}
-      <header className="header">
-        <div className="logo">
-          <img
-            src="logo.png"
-            alt="Today I learned logo"
-            height="68px"
-            width="68px"
-          />
-          <h1>{appTitle}</h1>
-        </div>
 
-        <button
-          onClick={() => setShowForm(!showForm)}
-          className="btn btn-large share-fact"
-        >
-          {showForm ? "close" : "share a fact"}
-        </button>
-      </header>
+      <Header
+        appTitle={appTitle}
+        setShowForm={setShowForm}
+        showForm={showForm}
+      ></Header>
 
       {showForm ? <NewFactForm /> : null}
 
@@ -37,6 +25,29 @@ function App() {
         <FactsList />
       </main>
     </>
+  );
+}
+
+function Header({ appTitle, showForm, setShowForm }) {
+  return (
+    <header className="header">
+      <div className="logo">
+        <img
+          src="logo.png"
+          alt="Today I learned logo"
+          height="68px"
+          width="68px"
+        />
+        <h1>{appTitle}</h1>
+      </div>
+
+      <button
+        onClick={() => setShowForm(!showForm)}
+        className="btn btn-large share-fact"
+      >
+        {showForm ? "close" : "share a fact"}
+      </button>
+    </header>
   );
 }
 
