@@ -60,7 +60,7 @@ function NewFactForm() {
           Choose Category
         </option>
         {CATEGORIES.map((category) => (
-          <option value={category.name}>
+          <option key={category.name} value={category.name}>
             {category.name.toLocaleUpperCase()}
           </option>
         ))}
