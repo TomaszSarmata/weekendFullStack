@@ -52,6 +52,7 @@ function Header({ appTitle, showForm, setShowForm }) {
 function NewFactForm() {
   const [inputFact, setInputFact] = useState("");
   const [inputSource, setInputSource] = useState("");
+  const [category, setCategory] = useState("");
   return (
     <form action="" className="fact-form">
       <input
@@ -71,7 +72,12 @@ function NewFactForm() {
         type="text"
         placeholder="Trustworthy source..."
       />
-      <select name="" id="">
+      <select
+        value={category}
+        onChange={(e) => setCategory(e.target.value)}
+        name=""
+        id=""
+      >
         <option defaultChecked={true} value="">
           Choose Category
         </option>
