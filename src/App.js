@@ -10,8 +10,6 @@ function App() {
 
   return (
     <>
-      {/* HEADER - to be moved to a component */}
-
       <Header
         appTitle={appTitle}
         setShowForm={setShowForm}
