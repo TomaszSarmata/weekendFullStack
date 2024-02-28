@@ -63,7 +63,7 @@ function NewFactForm() {
         type="text"
         placeholder="Share a fact with the world"
       />
-      <span>200</span>
+      <span>{200 - inputFact.length}</span>
       <input
         value={inputSource}
         onChange={(e) => {
