@@ -53,8 +53,14 @@ function NewFactForm() {
   const [inputFact, setInputFact] = useState("");
   const [inputSource, setInputSource] = useState("");
   const [category, setCategory] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(inputFact, inputSource, category);
+  };
+
   return (
-    <form action="" className="fact-form">
+    <form action="" className="fact-form" onSubmit={handleSubmit}>
       <input
         value={inputFact}
         onChange={(e) => {
