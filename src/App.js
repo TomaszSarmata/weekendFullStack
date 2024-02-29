@@ -8,6 +8,8 @@ function App() {
   // Create variable to hold initial facts from db
   const [factsArr, setFactsArr] = useState(initialFacts);
 
+  const [formErrorMessage, setFormErrorMessage] = useState("");
+
   const appTitle = "Today I Learned";
 
   return (
@@ -24,7 +26,14 @@ function App() {
           setFactsArr={setFactsArr}
           showForm={showForm}
           setShowForm={setShowForm}
+          formErrorMessage={formErrorMessage}
+          setFormErrorMessage={setFormErrorMessage}
         />
+      ) : null}
+      {formErrorMessage ? (
+        <p style={{ color: "red", textAlign: "center", marginBottom: "20px" }}>
+          {formErrorMessage}
+        </p>
       ) : null}
 
       <main className="main">
@@ -58,7 +67,14 @@ function Header({ appTitle, showForm, setShowForm }) {
   );
 }
 
-function NewFactForm({ factsArr, setFactsArr, showForm, setShowForm }) {
+function NewFactForm({
+  factsArr,
+  setFactsArr,
+  showForm,
+  setShowForm,
+  formErrorMessage,
+  setFormErrorMessage,
+}) {
   const [inputFact, setInputFact] = useState("");
   const [inputSource, setInputSource] = useState("");
   const [category, setCategory] = useState("");
@@ -69,7 +85,11 @@ function NewFactForm({ factsArr, setFactsArr, showForm, setShowForm }) {
     console.log(inputFact, inputSource, category);
 
     // 2. Check if data valid. If so, create a new fact (will have to create a state for the initialFacts and set the default to the variable that holds the initialFacts)
-    if (inputFact && inputSource && category) {
+    if (!inputFact || !inputSource || !category) {
+      setFormErrorMessage(
+        "Please make sure you provide the fact along with the source link and choose the right category"
+      );
+    } else {
       const newFact = {
         text: inputFact,
         source: inputSource,
@@ -80,6 +100,7 @@ function NewFactForm({ factsArr, setFactsArr, showForm, setShowForm }) {
       setInputSource("");
       setCategory("");
       setShowForm(!showForm);
+      setFormErrorMessage("");
     }
 
     // 3. Create a new fact object and push it to the list of variable that holds initialFacts
