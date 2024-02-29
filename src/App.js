@@ -11,7 +11,7 @@ function App() {
 
   const [formErrorMessage, setFormErrorMessage] = useState("");
 
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const appTitle = "Today I Learned";
 
@@ -20,10 +20,11 @@ function App() {
   }, []);
 
   const getFacts = async () => {
+    setIsLoading(true);
     let { data: facts, error } = await supabase.from("facts").select("*");
     if (error) console.error("error:", error);
     else setFactsArr(facts);
-    setLoading(false);
+    setIsLoading(false);
   };
 
   return (
@@ -52,7 +53,7 @@ function App() {
 
       <main className="main">
         <CategoryFilter />
-        {loading ? (
+        {isLoading ? (
           <Loading></Loading>
         ) : (
           <FactsList factsArr={factsArr}></FactsList>
