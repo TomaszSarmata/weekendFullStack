@@ -7,7 +7,7 @@ import supabase from "./supabase";
 function App() {
   const [showForm, setShowForm] = useState(false);
   // Create variable to hold initial facts from db
-  const [factsArr, setFactsArr] = useState(initialFacts);
+  const [factsArr, setFactsArr] = useState([]);
 
   const [formErrorMessage, setFormErrorMessage] = useState("");
 
