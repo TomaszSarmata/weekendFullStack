@@ -11,6 +11,8 @@ function App() {
 
   const [formErrorMessage, setFormErrorMessage] = useState("");
 
+  const [loading, setLoading] = useState(true);
+
   const appTitle = "Today I Learned";
 
   useEffect(() => {
@@ -21,6 +23,7 @@ function App() {
     let { data: facts, error } = await supabase.from("facts").select("*");
     if (error) console.error("error:", error);
     else setFactsArr(facts);
+    setLoading(false);
   };
 
   return (
@@ -49,10 +52,18 @@ function App() {
 
       <main className="main">
         <CategoryFilter />
-        <FactsList factsArr={factsArr} />
+        {loading ? (
+          <Loading></Loading>
+        ) : (
+          <FactsList factsArr={factsArr}></FactsList>
+        )}
       </main>
     </>
   );
+}
+
+function Loading() {
+  return <div>loading...</div>;
 }
 
 function Header({ appTitle, showForm, setShowForm }) {
