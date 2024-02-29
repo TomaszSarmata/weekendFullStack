@@ -93,7 +93,6 @@ function NewFactForm({
   const handleSubmit = (e) => {
     // 1. Prevent the browser reload
     e.preventDefault();
-    console.log(inputFact, inputSource, category);
 
     // 2. Check if data valid. If so, create a new fact (will have to create a state for the initialFacts and set the default to the variable that holds the initialFacts)
     if (!inputFact || !inputSource || !category) {
@@ -111,7 +110,7 @@ function NewFactForm({
         votesInteresting: 0,
         votesMindblowing: 0,
         votesFalse: 0,
-        createdIn: new Date().getCurrentYear(),
+        createdIn: new Date().getFullYear(),
       };
       setFactsArr([...factsArr, newFact]);
       setInputFact("");
