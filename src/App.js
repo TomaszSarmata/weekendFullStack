@@ -76,7 +76,7 @@ function NewFactForm({
   setFormErrorMessage,
 }) {
   const [inputFact, setInputFact] = useState("");
-  const [inputSource, setInputSource] = useState("");
+  const [inputSource, setInputSource] = useState("http://example.com");
   const [category, setCategory] = useState("");
 
   //Validate the url link as a valid source
