@@ -2,6 +2,7 @@ import "./style.css";
 import CATEGORIES from "./data";
 import { initialFacts } from "./data";
 import { useState } from "react";
+import supabase from "./supabase";
 
 function App() {
   const [showForm, setShowForm] = useState(false);
