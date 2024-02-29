@@ -1,7 +1,7 @@
 import "./style.css";
 import CATEGORIES from "./data";
 import { initialFacts } from "./data";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import supabase from "./supabase";
 
 function App() {
@@ -12,6 +12,16 @@ function App() {
   const [formErrorMessage, setFormErrorMessage] = useState("");
 
   const appTitle = "Today I Learned";
+
+  useEffect(() => {
+    getFacts();
+  }, []);
+
+  const getFacts = async () => {
+    let { data: facts, error } = await supabase.from("facts").select("*");
+    if (error) console.error("error:", error);
+    else setFactsArr(facts);
+  };
 
   return (
     <>
