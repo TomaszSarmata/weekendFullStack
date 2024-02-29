@@ -126,7 +126,16 @@ function NewFactForm({
       <input
         value={inputSource}
         onChange={(e) => {
-          setInputSource(e.target.value);
+          if (inputFact.length <= 200) {
+            setInputSource(e.target.value);
+          } else if (inputFact.length > 200) {
+            setFormErrorMessage(
+              "Please make sure your fact is no longer than 200 characters"
+            );
+          }
+          if (inputFact.length <= 200) {
+            setFormErrorMessage("");
+          }
         }}
         type="text"
         placeholder="Trustworthy source..."
