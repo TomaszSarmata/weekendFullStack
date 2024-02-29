@@ -104,9 +104,14 @@ function NewFactForm({
       setFormErrorMessage("Please provide a valid source link");
     } else {
       const newFact = {
+        id: `fact-${Date.now()}`,
         text: inputFact,
         source: inputSource,
         category: category,
+        votesInteresting: 0,
+        votesMindblowing: 0,
+        votesFalse: 0,
+        createdIn: new Date().getCurrentYear(),
       };
       setFactsArr([...factsArr, newFact]);
       setInputFact("");
