@@ -112,7 +112,7 @@ function NewFactForm({
         votesFalse: 0,
         createdIn: new Date().getFullYear(),
       };
-      setFactsArr([...factsArr, newFact]);
+      setFactsArr([newFact, ...factsArr]);
       setInputFact("");
       setInputSource("");
       setCategory("");
