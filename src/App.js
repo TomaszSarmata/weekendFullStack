@@ -5,6 +5,8 @@ import { useState } from "react";
 
 function App() {
   const [showForm, setShowForm] = useState(false);
+  // Create variable to hold initial facts from db
+  const [factsArr, setFactsArr] = useState(initialFacts);
 
   const appTitle = "Today I Learned";
 
@@ -16,11 +18,18 @@ function App() {
         showForm={showForm}
       ></Header>
 
-      {showForm ? <NewFactForm /> : null}
+      {showForm ? (
+        <NewFactForm
+          factsArr={factsArr}
+          setFactsArr={setFactsArr}
+          showForm={showForm}
+          setShowForm={setShowForm}
+        />
+      ) : null}
 
       <main className="main">
         <CategoryFilter />
-        <FactsList />
+        <FactsList factsArr={factsArr} />
       </main>
     </>
   );
@@ -49,7 +58,7 @@ function Header({ appTitle, showForm, setShowForm }) {
   );
 }
 
-function NewFactForm() {
+function NewFactForm({ factsArr, setFactsArr, showForm, setShowForm }) {
   const [inputFact, setInputFact] = useState("");
   const [inputSource, setInputSource] = useState("");
   const [category, setCategory] = useState("");
@@ -60,7 +69,17 @@ function NewFactForm() {
     console.log(inputFact, inputSource, category);
 
     // 2. Check if data valid. If so, create a new fact (will have to create a state for the initialFacts and set the default to the variable that holds the initialFacts)
-    if (inputFact || inputSource || category) {
+    if (inputFact && inputSource && category) {
+      const newFact = {
+        text: inputFact,
+        source: inputSource,
+        category: category,
+      };
+      setFactsArr([...factsArr, newFact]);
+      setInputFact("");
+      setInputSource("");
+      setCategory("");
+      setShowForm(!showForm);
     }
 
     // 3. Create a new fact object and push it to the list of variable that holds initialFacts
@@ -131,17 +150,15 @@ function CategoryFilter() {
   );
 }
 
-function FactsList() {
-  const facts = initialFacts;
-
+function FactsList({ factsArr }) {
   return (
     <section>
       <ul className="facts-list">
-        {facts.map((fact) => (
+        {factsArr.map((fact) => (
           <Fact fact={fact} key={fact.id}></Fact>
         ))}
       </ul>
-      <p>there are {facts.length} facts in total</p>
+      <p>there are {factsArr.length} facts in total</p>
     </section>
   );
 }
