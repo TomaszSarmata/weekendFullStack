@@ -79,6 +79,17 @@ function NewFactForm({
   const [inputSource, setInputSource] = useState("");
   const [category, setCategory] = useState("");
 
+  //Validate the url link as a valid source
+  const isValidUrl = (link) => {
+    try {
+      const url = new URL(link);
+
+      return url.protocol === "http:" || url.protocol === "https:";
+    } catch (error) {
+      return false;
+    }
+  };
+
   const handleSubmit = (e) => {
     // 1. Prevent the browser reload
     e.preventDefault();
@@ -89,6 +100,8 @@ function NewFactForm({
       setFormErrorMessage(
         "Please make sure you provide the fact along with the source link and choose the right category"
       );
+    } else if (!isValidUrl(inputSource)) {
+      setFormErrorMessage("Please provide a valid source link");
     } else {
       const newFact = {
         text: inputFact,
@@ -117,17 +130,8 @@ function NewFactForm({
       <input
         value={inputFact}
         onChange={(e) => {
-          setInputFact(e.target.value);
-        }}
-        type="text"
-        placeholder="Share a fact with the world"
-      />
-      <span>{200 - inputFact.length}</span>
-      <input
-        value={inputSource}
-        onChange={(e) => {
           if (inputFact.length <= 200) {
-            setInputSource(e.target.value);
+            setInputFact(e.target.value);
           } else if (inputFact.length > 200) {
             setFormErrorMessage(
               "Please make sure your fact is no longer than 200 characters"
@@ -138,11 +142,22 @@ function NewFactForm({
           }
         }}
         type="text"
+        placeholder="Share a fact with the world"
+      />
+      <span>{200 - inputFact.length}</span>
+      <input
+        value={inputSource}
+        onChange={(e) => {
+          setInputSource(e.target.value);
+        }}
+        type="text"
         placeholder="Trustworthy source..."
       />
       <select
         value={category}
-        onChange={(e) => setCategory(e.target.value)}
+        onChange={(e) => {
+          setCategory(e.target.value);
+        }}
         name=""
         id=""
       >
