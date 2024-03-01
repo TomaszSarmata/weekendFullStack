@@ -31,6 +31,29 @@ function App() {
     setIsLoading(false);
   };
 
+  const handleCategory = async (category) => {
+    setIsLoading(true);
+    if (category === "all") {
+      let { data: facts, error } = await supabase
+        .from("facts")
+        .select("*")
+        .order("votes_interesting", { ascending: false })
+        .limit(100);
+      if (error) console.error("error:", error);
+      else setFactsArr(facts);
+      setIsLoading(false);
+    } else {
+      let { data: facts, error } = await supabase
+        .from("facts")
+        .select("*")
+        .ilike("category", `%${category}%`);
+
+      if (error) console.error("error:", error);
+      else setFactsArr(facts);
+      setIsLoading(false);
+    }
+  };
+
   return (
     <>
       <Header
@@ -56,7 +79,7 @@ function App() {
       ) : null}
 
       <main className="main">
-        <CategoryFilter />
+        <CategoryFilter handleCategory={handleCategory} />
         {isLoading ? (
           <Loading></Loading>
         ) : (
@@ -204,16 +227,26 @@ function NewFactForm({
   );
 }
 
-function CategoryFilter() {
+function CategoryFilter({ handleCategory }) {
   return (
     <aside>
       <ul>
         <li className="category">
-          <button className="btn btn-all-categories">All</button>
+          <button
+            onClick={() => {
+              handleCategory("all");
+            }}
+            className="btn btn-all-categories"
+          >
+            All
+          </button>
         </li>
         {CATEGORIES.map((category) => (
           <li key={category.name} className="category">
             <button
+              onClick={() => {
+                handleCategory(category.name);
+              }}
               style={{ backgroundColor: category.color }}
               className="btn btn-category"
             >
