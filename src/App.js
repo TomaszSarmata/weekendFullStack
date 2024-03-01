@@ -37,6 +37,13 @@ function App() {
     if (error) console.error("error:", error);
     else setFactsArr(facts);
     setIsLoading(false);
+    if (facts.length === 0) {
+      setShowForm(true);
+      setFormErrorMessage("Add a new fact in the form provided above");
+      setTimeout(() => {
+        setFormErrorMessage("");
+      }, 5000);
+    }
   };
 
   // const handleCategory = async (category) => {
@@ -68,6 +75,7 @@ function App() {
         appTitle={appTitle}
         setShowForm={setShowForm}
         showForm={showForm}
+        setFormErrorMessage={setFormErrorMessage}
       ></Header>
 
       {showForm ? (
@@ -106,7 +114,7 @@ function Loading() {
   return <div className="loader">loading...</div>;
 }
 
-function Header({ appTitle, showForm, setShowForm }) {
+function Header({ appTitle, showForm, setShowForm, setFormErrorMessage }) {
   return (
     <header className="header">
       <div className="logo">
@@ -120,7 +128,10 @@ function Header({ appTitle, showForm, setShowForm }) {
       </div>
 
       <button
-        onClick={() => setShowForm(!showForm)}
+        onClick={() => {
+          setShowForm(!showForm);
+          setFormErrorMessage("");
+        }}
         className="btn btn-large share-fact"
       >
         {showForm ? "close" : "share a fact"}
