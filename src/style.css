@@ -41,6 +41,14 @@ body {
   border-radius: 16px;
 }
 
+.loader {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 32px;
+  font-weight: 600;
+  margin-top: 24px;
+}
+
 /* ELEMENTS */
 
 .logo {

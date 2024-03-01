@@ -64,7 +64,7 @@ function App() {
 }
 
 function Loading() {
-  return <div>loading...</div>;
+  return <div className="loader">loading...</div>;
 }
 
 function Header({ appTitle, showForm, setShowForm }) {
