@@ -177,7 +177,7 @@ function NewFactForm({
         .select();
 
       console.log(newFact);
-      setFactsArr([...factsArr, newFact[0]]);
+      setFactsArr([newFact[0], ...factsArr]);
     }
 
     setInputFact("");
