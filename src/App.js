@@ -37,15 +37,6 @@ function App() {
     if (error) console.error("error:", error);
     else setFactsArr(facts);
     setIsLoading(false);
-    if (facts.length === 0) {
-      setShowForm(true);
-      setFormErrorMessage(
-        "No facts in this category yet. Add a new fact in the form provided above"
-      );
-      setTimeout(() => {
-        setFormErrorMessage("");
-      }, 5000);
-    }
   };
 
   // const handleCategory = async (category) => {
@@ -290,7 +281,8 @@ function FactsList({ factsArr }) {
   if (factsArr.length === 0) {
     return (
       <div className="loader">
-        There are currently no facts in theis category. Create the first fact✌️
+        There are currently no facts in this category. Use the form above to add
+        a new fact ✌️
       </div>
     );
   }
