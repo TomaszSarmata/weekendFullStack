@@ -24,7 +24,8 @@ function App() {
     let { data: facts, error } = await supabase
       .from("facts")
       .select("*")
-      .order("votes_interesting", { ascending: false });
+      .order("votes_interesting", { ascending: false })
+      .limit(100);
     if (error) console.error("error:", error);
     else setFactsArr(facts);
     setIsLoading(false);
