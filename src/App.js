@@ -21,7 +21,10 @@ function App() {
 
   const getFacts = async () => {
     setIsLoading(true);
-    let { data: facts, error } = await supabase.from("facts").select("*");
+    let { data: facts, error } = await supabase
+      .from("facts")
+      .select("*")
+      .order("votes_interesting", { ascending: false });
     if (error) console.error("error:", error);
     else setFactsArr(facts);
     setIsLoading(false);
@@ -261,12 +264,12 @@ function Fact({ fact }) {
       </span>
       <div className="vote-buttons">
         <button className="votes-interesting">
-          👍 {fact.votesInteresting}
+          👍 {fact.votes_interesting}
         </button>
         <button className="votes-mindblowing">
-          🤯 {fact.votesMindblowing}
+          🤯 {fact.votes_mind_blowing}
         </button>
-        <button className="votes-false">⛔️ {fact.votesFalse}</button>
+        <button className="votes-false">⛔️ {fact.votes_false}</button>
       </div>
     </li>
   );
