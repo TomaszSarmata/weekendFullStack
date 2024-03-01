@@ -159,7 +159,7 @@ function NewFactForm({
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     // 1. Prevent the browser reload
     e.preventDefault();
 
@@ -171,23 +171,20 @@ function NewFactForm({
     } else if (!isValidUrl(inputSource)) {
       setFormErrorMessage("Please provide a valid source link");
     } else {
-      const newFact = {
-        id: `fact-${Date.now()}`,
-        text: inputFact,
-        source: inputSource,
-        category: category,
-        votesInteresting: 0,
-        votesMindblowing: 0,
-        votesFalse: 0,
-        createdIn: new Date().getFullYear(),
-      };
-      setFactsArr([newFact, ...factsArr]);
-      setInputFact("");
-      setInputSource("");
-      setCategory("");
-      setShowForm(!showForm);
-      setFormErrorMessage("");
+      const { data: newFact, error } = await supabase
+        .from("facts")
+        .insert([{ text: inputFact, source: inputSource, category: category }])
+        .select();
+
+      console.log(newFact);
+      setFactsArr([...factsArr, newFact[0]]);
     }
+
+    setInputFact("");
+    setInputSource("");
+    setCategory("");
+    setShowForm(!showForm);
+    setFormErrorMessage("");
 
     // 3. Create a new fact object and push it to the list of variable that holds initialFacts
 
@@ -237,7 +234,7 @@ function NewFactForm({
         <option value="">Choose Category</option>
         {CATEGORIES.map((category) => (
           <option key={category.name} value={category.name}>
-            {category.name.toLocaleUpperCase()}
+            {category.name.toUpperCase()}
           </option>
         ))}
       </select>
