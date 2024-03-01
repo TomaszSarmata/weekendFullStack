@@ -39,7 +39,9 @@ function App() {
     setIsLoading(false);
     if (facts.length === 0) {
       setShowForm(true);
-      setFormErrorMessage("Add a new fact in the form provided above");
+      setFormErrorMessage(
+        "No facts in this category yet. Add a new fact in the form provided above"
+      );
       setTimeout(() => {
         setFormErrorMessage("");
       }, 5000);
@@ -285,6 +287,13 @@ function CategoryFilter({ handleCategory, setCurrentCategory }) {
 }
 
 function FactsList({ factsArr }) {
+  if (factsArr.length === 0) {
+    return (
+      <div className="loader">
+        There are currently no facts in theis category. Create the first fact✌️
+      </div>
+    );
+  }
   return (
     <section>
       <ul className="facts-list">
