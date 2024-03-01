@@ -13,46 +13,54 @@ function App() {
 
   const [isLoading, setIsLoading] = useState(false);
 
+  const [currentCategory, setCurrentCategory] = useState("all");
+
   const appTitle = "Today I Learned";
 
   useEffect(() => {
     getFacts();
-  }, []);
+  }, [currentCategory]);
 
   const getFacts = async () => {
     setIsLoading(true);
-    let { data: facts, error } = await supabase
-      .from("facts")
-      .select("*")
-      .order("votes_interesting", { ascending: false })
+
+    let query = supabase.from("facts").select("*");
+
+    if (currentCategory !== "all") {
+      query = query.eq("category", `${currentCategory}`);
+    }
+
+    let { data: facts, error } = await query
+      .order("votes_interesting", { ascending: true })
       .limit(100);
+
     if (error) console.error("error:", error);
     else setFactsArr(facts);
     setIsLoading(false);
   };
 
-  const handleCategory = async (category) => {
-    setIsLoading(true);
-    if (category === "all") {
-      let { data: facts, error } = await supabase
-        .from("facts")
-        .select("*")
-        .order("votes_interesting", { ascending: false })
-        .limit(100);
-      if (error) console.error("error:", error);
-      else setFactsArr(facts);
-      setIsLoading(false);
-    } else {
-      let { data: facts, error } = await supabase
-        .from("facts")
-        .select("*")
-        .ilike("category", `%${category}%`);
+  // const handleCategory = async (category) => {
+  //   setIsLoading(true);
+  //   if (category === "all") {
+  //     let { data: facts, error } = await supabase
+  //       .from("facts")
+  //       .select("*")
+  //       .order("votes_interesting", { ascending: false })
+  //       .limit(100);
+  //     if (error) console.error("error:", error);
+  //     else setFactsArr(facts);
+  //     setIsLoading(false);
+  //   } else {
+  //     let { data: facts, error } = await supabase
+  //       .from("facts")
+  //       .select("*")
+  //       .ilike("category", `%${category}%`);
 
-      if (error) console.error("error:", error);
-      else setFactsArr(facts);
-      setIsLoading(false);
-    }
-  };
+  //     if (error) console.error("error:", error);
+  //     else setFactsArr(facts);
+  //     setIsLoading(false);
+  //   }
+  // };
 
   return (
     <>
@@ -79,7 +87,11 @@ function App() {
       ) : null}
 
       <main className="main">
-        <CategoryFilter handleCategory={handleCategory} />
+        <CategoryFilter
+          // handleCategory={handleCategory}
+
+          setCurrentCategory={setCurrentCategory}
+        />
         {isLoading ? (
           <Loading></Loading>
         ) : (
@@ -227,14 +239,15 @@ function NewFactForm({
   );
 }
 
-function CategoryFilter({ handleCategory }) {
+function CategoryFilter({ handleCategory, setCurrentCategory }) {
   return (
     <aside>
       <ul>
         <li className="category">
           <button
             onClick={() => {
-              handleCategory("all");
+              setCurrentCategory("all");
+              // handleCategory("all");
             }}
             className="btn btn-all-categories"
           >
@@ -245,7 +258,8 @@ function CategoryFilter({ handleCategory }) {
           <li key={category.name} className="category">
             <button
               onClick={() => {
-                handleCategory(category.name);
+                setCurrentCategory(category.name);
+                // handleCategory(category.name);
               }}
               style={{ backgroundColor: category.color }}
               className="btn btn-category"
