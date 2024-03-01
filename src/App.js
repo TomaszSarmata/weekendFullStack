@@ -37,6 +37,9 @@ function App() {
     if (error) console.error("error:", error);
     else setFactsArr(facts);
     setIsLoading(false);
+    if (facts.length === 0) {
+      setShowForm(true);
+    }
   };
 
   // const handleCategory = async (category) => {
