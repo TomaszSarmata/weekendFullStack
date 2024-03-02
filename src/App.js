@@ -147,7 +147,7 @@ function NewFactForm({
   const [inputFact, setInputFact] = useState("");
   const [inputSource, setInputSource] = useState("http://example.com");
   const [category, setCategory] = useState("");
-  // const [isUploading, setIsUploading] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
 
   //Validate the url link as a valid source
   const isValidUrl = (link) => {
@@ -178,14 +178,14 @@ function NewFactForm({
         setFormErrorMessage("");
       }, 5000);
     } else {
-      // setIsUploading(true);
+      setIsUploading(true);
       const { data: newFact, error } = await supabase
         .from("facts")
         .insert([{ text: inputFact, source: inputSource, category: category }])
         .select();
 
       setFactsArr([newFact[0], ...factsArr]);
-      // setIsUploading(false);
+      setIsUploading(false);
     }
 
     setInputFact("");
@@ -206,7 +206,7 @@ function NewFactForm({
   return (
     <form action="" className="fact-form" onSubmit={handleSubmit}>
       <input
-        // disabled={isUploading}
+        disabled={isUploading}
         value={inputFact}
         onChange={(e) => {
           if (inputFact.length <= 200) {
@@ -225,7 +225,7 @@ function NewFactForm({
       />
       <span>{200 - inputFact.length}</span>
       <input
-        // disabled={isUploading}
+        disabled={isUploading}
         value={inputSource}
         onChange={(e) => {
           setInputSource(e.target.value);
@@ -234,7 +234,7 @@ function NewFactForm({
         placeholder="Trustworthy source..."
       />
       <select
-        // disabled={isUploading}
+        disabled={isUploading}
         value={category}
         onChange={(e) => {
           setCategory(e.target.value);
@@ -249,7 +249,9 @@ function NewFactForm({
           </option>
         ))}
       </select>
-      <button className="btn btn-large" /*disabled={isUploading}*/>Post</button>
+      <button className="btn btn-large" disabled={isUploading}>
+        Post
+      </button>
     </form>
   );
 }
