@@ -191,7 +191,10 @@ function NewFactForm({
     setInputFact("");
     setInputSource("");
     setCategory("");
-    // setShowForm(!showForm);
+    setTimeout(() => {
+      setShowForm(!showForm);
+    }, 1000);
+
     // setFormErrorMessage("");
 
     // 3. Create a new fact object and push it to the list of variable that holds initialFacts
