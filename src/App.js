@@ -147,6 +147,7 @@ function NewFactForm({
   const [inputFact, setInputFact] = useState("");
   const [inputSource, setInputSource] = useState("http://example.com");
   const [category, setCategory] = useState("");
+  // const [isUploading, setIsUploading] = useState(false);
 
   //Validate the url link as a valid source
   const isValidUrl = (link) => {
@@ -168,23 +169,30 @@ function NewFactForm({
       setFormErrorMessage(
         "Please make sure you provide the fact along with the source link and choose the right category"
       );
+      setTimeout(() => {
+        setFormErrorMessage("");
+      }, 5000);
     } else if (!isValidUrl(inputSource)) {
       setFormErrorMessage("Please provide a valid source link");
+      setTimeout(() => {
+        setFormErrorMessage("");
+      }, 5000);
     } else {
+      // setIsUploading(true);
       const { data: newFact, error } = await supabase
         .from("facts")
         .insert([{ text: inputFact, source: inputSource, category: category }])
         .select();
 
-      console.log(newFact);
       setFactsArr([newFact[0], ...factsArr]);
+      // setIsUploading(false);
     }
 
     setInputFact("");
     setInputSource("");
     setCategory("");
-    setShowForm(!showForm);
-    setFormErrorMessage("");
+    // setShowForm(!showForm);
+    // setFormErrorMessage("");
 
     // 3. Create a new fact object and push it to the list of variable that holds initialFacts
 
@@ -198,6 +206,7 @@ function NewFactForm({
   return (
     <form action="" className="fact-form" onSubmit={handleSubmit}>
       <input
+        // disabled={isUploading}
         value={inputFact}
         onChange={(e) => {
           if (inputFact.length <= 200) {
@@ -216,6 +225,7 @@ function NewFactForm({
       />
       <span>{200 - inputFact.length}</span>
       <input
+        // disabled={isUploading}
         value={inputSource}
         onChange={(e) => {
           setInputSource(e.target.value);
@@ -224,6 +234,7 @@ function NewFactForm({
         placeholder="Trustworthy source..."
       />
       <select
+        // disabled={isUploading}
         value={category}
         onChange={(e) => {
           setCategory(e.target.value);
@@ -238,7 +249,7 @@ function NewFactForm({
           </option>
         ))}
       </select>
-      <button className="btn btn-large">Post</button>
+      <button className="btn btn-large" /*disabled={isUploading}*/>Post</button>
     </form>
   );
 }
