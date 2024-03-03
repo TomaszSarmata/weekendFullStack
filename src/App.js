@@ -316,7 +316,25 @@ function FactsList({ factsArr }) {
   );
 }
 
-function Fact({ fact }) {
+function Fact({ fact, factsArr }) {
+  const [votesInteresting, setVotesInteresting] = useState(
+    fact.votes_interesting
+  );
+  async function handleVote(id) {
+    const newValue = votesInteresting + 1;
+    setVotesInteresting(newValue);
+    console.log(newValue, "over here votes interesting");
+    const { data, error } = await supabase
+      .from("facts")
+      .update({ votes_interesting: newValue })
+      .eq("id", id)
+      .select();
+    if (error) {
+      console.log("error updating votes:", error);
+    } else {
+      console.log("data here for like:", data[0].votes_interesting);
+    }
+  }
   return (
     <li key={fact.id} className="fact">
       <p className="fact-text">
@@ -341,8 +359,11 @@ function Fact({ fact }) {
         {fact.category}
       </span>
       <div className="vote-buttons">
-        <button className="votes-interesting">
-          👍 {fact.votes_interesting}
+        <button
+          onClick={() => handleVote(fact.id)}
+          className="votes-interesting"
+        >
+          👍 {votesInteresting}
         </button>
         <button className="votes-mindblowing">
           🤯 {fact.votes_mind_blowing}
