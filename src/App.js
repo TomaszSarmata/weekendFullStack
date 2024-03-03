@@ -183,8 +183,10 @@ function NewFactForm({
         .from("facts")
         .insert([{ text: inputFact, source: inputSource, category: category }])
         .select();
+      if (!error) {
+        setFactsArr([newFact[0], ...factsArr]);
+      }
 
-      setFactsArr([newFact[0], ...factsArr]);
       setIsUploading(false);
     }
 
