@@ -316,7 +316,7 @@ function FactsList({ factsArr }) {
   );
 }
 
-function Fact({ fact, factsArr }) {
+function Fact({ fact }) {
   const [votesInteresting, setVotesInteresting] = useState(
     fact.votes_interesting
   );
