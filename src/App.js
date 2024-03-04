@@ -99,7 +99,7 @@ function App() {
         {isLoading ? (
           <Loading></Loading>
         ) : (
-          <FactsList factsArr={factsArr}></FactsList>
+          <FactsList factsArr={factsArr} setFactsArr={setFactsArr}></FactsList>
         )}
       </main>
     </>
@@ -295,7 +295,7 @@ function CategoryFilter({ handleCategory, setCurrentCategory }) {
   );
 }
 
-function FactsList({ factsArr }) {
+function FactsList({ factsArr, setFactsArr }) {
   if (factsArr.length === 0) {
     return (
       <div className="loader">
@@ -308,7 +308,12 @@ function FactsList({ factsArr }) {
     <section>
       <ul className="facts-list">
         {factsArr.map((fact) => (
-          <Fact fact={fact} key={fact.id}></Fact>
+          <Fact
+            fact={fact}
+            key={fact.id}
+            factsArr={factsArr}
+            setFactsArr={setFactsArr}
+          ></Fact>
         ))}
       </ul>
       <p>there are {factsArr.length} facts in total</p>
@@ -316,24 +321,24 @@ function FactsList({ factsArr }) {
   );
 }
 
-function Fact({ fact }) {
+function Fact({ fact, factsArr, setFactsArr }) {
   const [votesInteresting, setVotesInteresting] = useState(
     fact.votes_interesting
   );
-  async function handleVote(id) {
-    const newValue = votesInteresting + 1;
-    setVotesInteresting(newValue);
-    console.log(newValue, "over here votes interesting");
-    const { data, error } = await supabase
+  async function handleVote() {
+    // const newValue = votesInteresting + 1;
+    // setVotesInteresting(newValue);
+
+    const { data: updatedFact, error } = await supabase
       .from("facts")
-      .update({ votes_interesting: newValue })
-      .eq("id", id)
+      .update({ votes_interesting: fact.votes_interesting + 1 })
+      .eq("id", fact.id)
       .select();
-    if (error) {
-      console.log("error updating votes:", error);
-    } else {
-      console.log("data here for like:", data[0].votes_interesting);
-    }
+    console.log(updatedFact[0]);
+    if (!error)
+      setFactsArr((factsArr) =>
+        factsArr.map((f) => (f.id === fact.id ? updatedFact[0] : f))
+      );
   }
   return (
     <li key={fact.id} className="fact">
@@ -359,11 +364,8 @@ function Fact({ fact }) {
         {fact.category}
       </span>
       <div className="vote-buttons">
-        <button
-          onClick={() => handleVote(fact.id)}
-          className="votes-interesting"
-        >
-          👍 {votesInteresting}
+        <button onClick={() => handleVote()} className="votes-interesting">
+          👍 {fact.votes_interesting}
         </button>
         <button className="votes-mindblowing">
           🤯 {fact.votes_mind_blowing}
