@@ -322,19 +322,15 @@ function FactsList({ factsArr, setFactsArr }) {
 }
 
 function Fact({ fact, factsArr, setFactsArr }) {
-  const [votesInteresting, setVotesInteresting] = useState(
-    fact.votes_interesting
-  );
+  const [isUpdating, setIsUpdating] = useState(false);
   async function handleVote() {
-    // const newValue = votesInteresting + 1;
-    // setVotesInteresting(newValue);
-
+    setIsUpdating(true);
     const { data: updatedFact, error } = await supabase
       .from("facts")
       .update({ votes_interesting: fact.votes_interesting + 1 })
       .eq("id", fact.id)
       .select();
-    console.log(updatedFact[0]);
+    setIsUpdating(false);
     if (!error)
       setFactsArr((factsArr) =>
         factsArr.map((f) => (f.id === fact.id ? updatedFact[0] : f))
@@ -364,7 +360,11 @@ function Fact({ fact, factsArr, setFactsArr }) {
         {fact.category}
       </span>
       <div className="vote-buttons">
-        <button onClick={() => handleVote()} className="votes-interesting">
+        <button
+          onClick={() => handleVote()}
+          className="votes-interesting"
+          disabled={isUpdating}
+        >
           👍 {fact.votes_interesting}
         </button>
         <button className="votes-mindblowing">
