@@ -207,6 +207,12 @@ ul {
   display: none;
 }
 
+.disputed {
+  color: #ef4444;
+  font-weight: 600;
+  margin-right: 10px;
+}
+
 /* MEDIA QUERIES */
 
 @media (max-width: 1200px) {
