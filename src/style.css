@@ -41,6 +41,11 @@ body {
   border-radius: 16px;
 }
 
+.facts-list {
+  overflow: scroll;
+  height: 100vh;
+}
+
 .loader {
   text-align: center;
   text-transform: uppercase;
