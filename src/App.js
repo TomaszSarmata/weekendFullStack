@@ -31,7 +31,7 @@ function App() {
     }
 
     let { data: facts, error } = await query
-      .order("votes_interesting", { ascending: true })
+      .order("votes_interesting", { ascending: false })
       .limit(100);
 
     if (error) console.error("error:", error);
